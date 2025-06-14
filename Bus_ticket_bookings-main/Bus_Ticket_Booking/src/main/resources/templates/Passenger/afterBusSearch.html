@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <title>After Bus Search</title>
+</head>
+<body>
+<nav class="logo navbar navbar-dark mb-4 bg-primary fixed-top ">
+    <div class="container">
+        <h2 class="text-white mb-0 navbar-brand"><span style="font-size:30px;color:yellow;"><i
+                class="fa-solid fa-bus"></i></span> Online Bus Registration System</h2>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-info">Logout</button>
+        </form>
+    </div>
+</nav>
+
+<div class="container col-8 mt-5 p-5">
+    <div class="container row d-flex justify-content-center">
+        <div class="username mb-3 p-2">
+            <h4 class=" mt-4 d-flex justify-content-center">Bus Details</h4>
+            <div class=" table-responsible">
+                <table class="table table-bordered table-hover text-center align-middle">
+                    <thead class="bg-primary tablehead">
+                    <tr class="bg-primary">
+                        <th>Bus Name</th>
+                        <th>Bus Number</th>
+                        <th>Departure Place</th>
+                        <th>Departure Time</th>
+                        <th>Destination Place</th>
+                        <th>Time</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="bus:${buses}">
+                        <td th:text="${bus.busName}"></td>
+                        <td th:text="${bus.busNumber}"></td>
+                        <td th:text="${bus.startingPoint}"></td>
+                        <td th:text="${bus.startTime}"></td>
+                        <td th:text="${bus.destinationPoint}"></td>
+                        <td th:text="${bus.destinationTime}"></td>
+                        <td th:text="${bus.price}"></td>
+                        <td>
+                            <a th:href="@{'/passenger/getBookingDetails/'+ ${bus.id} }"
+                               class="bookbutton btn btn-success">Book</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:if="${errorMessage}" class="alert alert-warning text-center" role="alert">
+                <p th:text="${errorMessage}"></p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
